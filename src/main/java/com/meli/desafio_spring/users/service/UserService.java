@@ -26,4 +26,11 @@ public class UserService {
         sellerRepository.save(seller);
         buyerRepository.save(buyer);
     }
+
+    public Seller getSeller(Long userId) {
+        Seller seller = sellerRepository.findById(userId);
+        if(seller == null)
+            throw new ObjectNotFoundException();
+        return seller;
+    }
 }
