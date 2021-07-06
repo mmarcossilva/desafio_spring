@@ -9,6 +9,9 @@ import com.meli.desafio_spring.users.repository.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserService {
 
@@ -35,5 +38,13 @@ public class UserService {
         if(seller == null)
             throw new ObjectNotFoundException();
         return seller;
+    }
+
+    public List<Buyer> getBuyers(List<Long> buyersIds){
+        return buyersIds.stream().map(id -> buyerRepository.findById(id)).collect(Collectors.toList());
+    }
+
+    public List<Seller> getSellers(List<Long> sellersIds){
+        return sellersIds.stream().map(id -> sellerRepository.findById(id)).collect(Collectors.toList());
     }
 }

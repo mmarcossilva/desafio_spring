@@ -1,12 +1,16 @@
 package com.meli.desafio_spring.users.controller;
 
-import com.meli.desafio_spring.users.DTOs.SellerDTO;
+import com.meli.desafio_spring.users.DTOs.SellerCountDTO;
+import com.meli.desafio_spring.users.DTOs.SellerListDTO;
+import com.meli.desafio_spring.users.DTOs.UserDTO;
 import com.meli.desafio_spring.users.models.Seller;
 import com.meli.desafio_spring.users.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -22,9 +26,16 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/count/")
-    public ResponseEntity<SellerDTO> getFollowersCount(@PathVariable Long userId){
+    public ResponseEntity<SellerCountDTO> getFollowersCount(@PathVariable Long userId){
         Seller seller = service.getSeller(userId);
-        return new ResponseEntity<>(new SellerDTO(seller), HttpStatus.OK);
+        return new ResponseEntity<>(new SellerCountDTO(seller), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followers/list/")
+    public ResponseEntity<SellerListDTO> getFollowersList(@PathVariable Long userId){
+        Seller seller = service.getSeller(userId);
+        List<UserDTO> buyers = UserDTO.convert(service.getBuyers(seller.getFollowers()));
+        return new ResponseEntity<>(new SellerListDTO(seller, buyers), HttpStatus.OK);
     }
 
 }
