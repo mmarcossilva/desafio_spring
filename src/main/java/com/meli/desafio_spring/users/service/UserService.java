@@ -1,6 +1,7 @@
 package com.meli.desafio_spring.users.service;
 
 import com.meli.desafio_spring.users.exceptions.ObjectNotFoundException;
+import com.meli.desafio_spring.users.exceptions.UserAlreadyFollow;
 import com.meli.desafio_spring.users.models.Buyer;
 import com.meli.desafio_spring.users.models.Seller;
 import com.meli.desafio_spring.users.repository.BuyerRepository;
@@ -21,6 +22,8 @@ public class UserService {
         Buyer buyer = buyerRepository.findById(buyerId);
         if(seller == null || buyer == null)
             throw new ObjectNotFoundException();
+        if(buyer.getFollowed().contains(sellerId))
+            throw new UserAlreadyFollow();
         buyer.follow(sellerId);
         seller.addFollower(buyerId);
         sellerRepository.save(seller);
