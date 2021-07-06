@@ -1,6 +1,7 @@
 package com.meli.desafio_spring.users.DTOs;
 
 import com.meli.desafio_spring.users.models.Buyer;
+import com.meli.desafio_spring.users.models.Seller;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +23,11 @@ public class UserDTO {
         return userName;
     }
 
-    public static List<UserDTO> convert(List<Buyer> buyers){
+    public static List<UserDTO> convertBuyers(List<Buyer> buyers){
      return buyers.stream().map(buyer -> new UserDTO(buyer.getUserId(), buyer.getUserName())).collect(Collectors.toList());
+    }
+
+    public static List<UserDTO> convertSellers(List<Seller> sellers){
+        return sellers.stream().map(seller -> new UserDTO(seller.getUserId(), seller.getUserName())).collect(Collectors.toList());
     }
 }

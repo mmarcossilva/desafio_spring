@@ -40,6 +40,13 @@ public class UserService {
         return seller;
     }
 
+    public Buyer getBuyer(Long userId) {
+        Buyer getBuyer = buyerRepository.findById(userId);
+        if(getBuyer == null)
+            throw new ObjectNotFoundException();
+        return getBuyer;
+    }
+
     public List<Buyer> getBuyers(List<Long> buyersIds){
         return buyersIds.stream().map(id -> buyerRepository.findById(id)).collect(Collectors.toList());
     }
