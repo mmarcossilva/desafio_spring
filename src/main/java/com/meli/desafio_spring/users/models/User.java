@@ -1,4 +1,4 @@
-package com.meli.desafio_spring.users;
+package com.meli.desafio_spring.users.models;
 
 public abstract class User {
     private long userId;

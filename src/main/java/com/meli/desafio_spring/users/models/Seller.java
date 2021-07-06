@@ -1,13 +1,14 @@
-package com.meli.desafio_spring.users;
+package com.meli.desafio_spring.users.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Seller extends User{
+public class Seller extends User {
     private List<Long> followers;
 
-    public Seller(long userId, String userName, List<Long> followers) {
+    public Seller(long userId, String userName) {
         super(userId, userName);
-        this.followers = followers;
+        this.followers = new ArrayList<>();
     }
 
     public List<Long> getFollowers() {
