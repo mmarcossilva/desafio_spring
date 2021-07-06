@@ -18,4 +18,8 @@ public class Buyer extends User {
     public void setFollowed(List<Long> followed) {
         this.followed = followed;
     }
+
+    public void follow(Long sellerId) {
+        followed.add(sellerId);
+    }
 }
