@@ -22,4 +22,8 @@ public class Seller extends User {
     public void addFollower(Integer buyerId) {
         this.followers.add(buyerId);
     }
+
+    public void removeFollower(Integer buyerId){
+        this.followers.remove(buyerId);
+    }
 }

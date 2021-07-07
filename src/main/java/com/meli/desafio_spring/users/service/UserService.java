@@ -2,6 +2,7 @@ package com.meli.desafio_spring.users.service;
 
 import com.meli.desafio_spring.users.exceptions.ObjectNotFoundException;
 import com.meli.desafio_spring.users.exceptions.UserAlreadyFollow;
+import com.meli.desafio_spring.users.exceptions.UserNotFollowed;
 import com.meli.desafio_spring.users.models.Buyer;
 import com.meli.desafio_spring.users.models.Seller;
 import com.meli.desafio_spring.users.repository.BuyerRepository;
@@ -53,5 +54,18 @@ public class UserService {
 
     public List<Seller> getSellers(List<Integer> sellersIds){
         return sellersIds.stream().map(id -> sellerRepository.findById(id)).collect(Collectors.toList());
+    }
+
+    public void unfollowSeller(int buyerId, int sellerId) {
+        Seller seller = sellerRepository.findById(sellerId);
+        Buyer buyer = buyerRepository.findById(buyerId);
+        if(seller == null || buyer == null)
+            throw new ObjectNotFoundException();
+        if(!buyer.getFollowed().contains(sellerId))
+            throw new UserNotFollowed();
+        buyer.unfollow(sellerId);
+        seller.removeFollower(buyerId);
+        sellerRepository.save(seller);
+        buyerRepository.save(buyer);
     }
 }

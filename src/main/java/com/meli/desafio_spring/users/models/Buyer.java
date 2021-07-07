@@ -22,4 +22,8 @@ public class Buyer extends User {
     public void follow(Integer sellerId) {
         followed.add(sellerId);
     }
+
+    public void unfollow(Integer sellerId) {
+        followed.remove(sellerId);
+    }
 }
