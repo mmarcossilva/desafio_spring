@@ -7,6 +7,7 @@ import com.meli.desafio_spring.users.DTOs.UserDTO;
 import com.meli.desafio_spring.users.models.Buyer;
 import com.meli.desafio_spring.users.models.Seller;
 import com.meli.desafio_spring.users.service.UserService;
+import commons.enums.OrderUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,16 +41,18 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list/")
-    public ResponseEntity<SellerListDTO> getFollowersList(@PathVariable int userId){
+    public ResponseEntity<SellerListDTO> getFollowersList(
+            @RequestParam(defaultValue = "name_asc") OrderUser order, @PathVariable int userId){
         Seller seller = service.getSeller(userId);
-        List<UserDTO> buyers = UserDTO.convertBuyers(service.getBuyers(seller.getFollowers()));
+        List<UserDTO> buyers = UserDTO.convertBuyers(service.getBuyers(seller.getFollowers(), order));
         return new ResponseEntity<>(new SellerListDTO(seller, buyers), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list/")
-    public ResponseEntity<BuyerListDTO> getFollowedList(@PathVariable int userId){
+    public ResponseEntity<BuyerListDTO> getFollowedList(
+            @RequestParam(defaultValue = "name_asc") OrderUser order, @PathVariable int userId){
         Buyer buyer = service.getBuyer(userId);
-        List<UserDTO> sellers = UserDTO.convertSellers(service.getSellers(buyer.getFollowed()));
+        List<UserDTO> sellers = UserDTO.convertSellers(service.getSellers(buyer.getFollowed(), order));
         return new ResponseEntity<>(new BuyerListDTO(buyer, sellers), HttpStatus.OK);
     }
 

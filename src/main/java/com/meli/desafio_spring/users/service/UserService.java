@@ -5,11 +5,15 @@ import com.meli.desafio_spring.users.exceptions.UserAlreadyFollow;
 import com.meli.desafio_spring.users.exceptions.UserNotFollowed;
 import com.meli.desafio_spring.users.models.Buyer;
 import com.meli.desafio_spring.users.models.Seller;
+import com.meli.desafio_spring.users.models.User;
 import com.meli.desafio_spring.users.repository.BuyerRepository;
 import com.meli.desafio_spring.users.repository.SellerRepository;
+import commons.enums.OrderUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,12 +52,24 @@ public class UserService {
         return getBuyer;
     }
 
-    public List<Buyer> getBuyers(List<Integer> buyersIds){
-        return buyersIds.stream().map(id -> buyerRepository.findById(id)).collect(Collectors.toList());
+    public List<Buyer> getBuyers(List<Integer> buyersIds, OrderUser order){
+        List<Buyer> buyers = buyersIds.stream()
+                .map(id -> buyerRepository.findById(id))
+                .sorted(Comparator.comparing(User::getUserName))
+                .collect(Collectors.toList());
+        if(order == OrderUser.name_desc)
+            Collections.reverse(buyers);
+        return buyers;
     }
 
-    public List<Seller> getSellers(List<Integer> sellersIds){
-        return sellersIds.stream().map(id -> sellerRepository.findById(id)).collect(Collectors.toList());
+    public List<Seller> getSellers(List<Integer> sellersIds, OrderUser order){
+        List<Seller> sellers = sellersIds.stream()
+                .map(id -> sellerRepository.findById(id))
+                .sorted(Comparator.comparing(User::getUserName))
+                .collect(Collectors.toList());
+        if(order == OrderUser.name_desc)
+            Collections.reverse(sellers);
+        return sellers;
     }
 
     public void unfollowSeller(int buyerId, int sellerId) {
