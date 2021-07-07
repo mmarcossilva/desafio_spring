@@ -1,4 +1,4 @@
-package com.meli.desafio_spring.users.repository.imple;
+package commons.interfaceDB;
 
 public interface DatabaseMethods<T> {
     T findById(int id);

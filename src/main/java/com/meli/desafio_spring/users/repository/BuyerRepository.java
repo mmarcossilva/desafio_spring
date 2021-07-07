@@ -1,7 +1,7 @@
 package com.meli.desafio_spring.users.repository;
 
 import com.meli.desafio_spring.users.models.Buyer;
-import com.meli.desafio_spring.users.repository.imple.DatabaseMethods;
+import commons.interfaceDB.DatabaseMethods;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
