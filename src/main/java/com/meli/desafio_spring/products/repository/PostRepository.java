@@ -29,4 +29,8 @@ public class PostRepository implements DatabaseMethods<Post> {
         posts.add(item);
         this.posts = posts;
     }
+
+    public List<Post> findByListSeller(List<Integer> followedId) {
+        return posts.stream().filter(post -> followedId.contains(post.getUserId())).collect(Collectors.toList());
+    }
 }
