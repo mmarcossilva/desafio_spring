@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Repository
 public class SellerRepository implements DatabaseMethods<Seller> {
-    private static Long id = 1L;
+    private static int id = 1;
     private List<Seller> sellers;
 
     public SellerRepository() {
@@ -23,7 +23,7 @@ public class SellerRepository implements DatabaseMethods<Seller> {
     }
 
     @Override
-    public Seller findById(Long id) {
+    public Seller findById(int id) {
         return sellers.stream().filter(seller -> seller.getUserId() == id).findFirst().orElse(null);
     }
 

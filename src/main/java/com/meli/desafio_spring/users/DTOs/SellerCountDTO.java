@@ -1,7 +1,6 @@
 package com.meli.desafio_spring.users.DTOs;
 
 import com.meli.desafio_spring.users.models.Seller;
-import org.springframework.util.MultiValueMap;
 
 public class SellerCountDTO extends UserDTO{
     private int followers_count;

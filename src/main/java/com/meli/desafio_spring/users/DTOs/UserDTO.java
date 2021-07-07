@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class UserDTO {
-    private Long userID;
+    private int userID;
     private  String userName;
 
-    public UserDTO(Long userID, String userName) {
+    public UserDTO(int userID, String userName) {
         this.userID = userID;
         this.userName = userName;
     }
 
-    public Long getUserID() {
+    public int getUserID() {
         return userID;
     }
 

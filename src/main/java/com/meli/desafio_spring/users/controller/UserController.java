@@ -22,26 +22,26 @@ public class UserController {
     private UserService service;
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<?> follow(@PathVariable Long userId, @PathVariable Long userIdToFollow){
+    public ResponseEntity<?> follow(@PathVariable int userId, @PathVariable int userIdToFollow){
         service.followSeller(userId, userIdToFollow);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followers/count/")
-    public ResponseEntity<SellerCountDTO> getFollowersCount(@PathVariable Long userId){
+    public ResponseEntity<SellerCountDTO> getFollowersCount(@PathVariable int userId){
         Seller seller = service.getSeller(userId);
         return new ResponseEntity<>(new SellerCountDTO(seller), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followers/list/")
-    public ResponseEntity<SellerListDTO> getFollowersList(@PathVariable Long userId){
+    public ResponseEntity<SellerListDTO> getFollowersList(@PathVariable int userId){
         Seller seller = service.getSeller(userId);
         List<UserDTO> buyers = UserDTO.convertBuyers(service.getBuyers(seller.getFollowers()));
         return new ResponseEntity<>(new SellerListDTO(seller, buyers), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list/")
-    public ResponseEntity<BuyerListDTO> getFollowedList(@PathVariable Long userId){
+    public ResponseEntity<BuyerListDTO> getFollowedList(@PathVariable int userId){
         Buyer buyer = service.getBuyer(userId);
         List<UserDTO> sellers = UserDTO.convertSellers(service.getSellers(buyer.getFollowed()));
         return new ResponseEntity<>(new BuyerListDTO(buyer, sellers), HttpStatus.OK);

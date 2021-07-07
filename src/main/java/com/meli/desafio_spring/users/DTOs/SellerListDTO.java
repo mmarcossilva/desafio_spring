@@ -1,6 +1,5 @@
 package com.meli.desafio_spring.users.DTOs;
 
-import com.meli.desafio_spring.users.models.Buyer;
 import com.meli.desafio_spring.users.models.Seller;
 
 import java.util.List;
