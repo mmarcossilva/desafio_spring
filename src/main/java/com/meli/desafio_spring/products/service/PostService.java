@@ -7,6 +7,7 @@ import com.meli.desafio_spring.products.repository.PostRepository;
 import com.meli.desafio_spring.users.models.Buyer;
 import com.meli.desafio_spring.users.models.Seller;
 import com.meli.desafio_spring.users.service.UserService;
+import commons.enums.OrderPost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,14 +40,17 @@ public class PostService {
             throw new ObjectIdAlreadyExistsExeception();
     }
 
-    public List<Post> getLatestPosts(int userId){
+    public List<Post> getLatestPosts(int userId, OrderPost order){
         Buyer buyer = userService.getBuyer(userId);
         Date limitDate = this.getDateBeforeTwoWeeks();
-        return postRepository.findByListSeller(
+        List<Post> posts = postRepository.findByListSeller(
                 buyer.getFollowed()).stream()
                 .filter(post -> post.getDate().after(limitDate))
                 .sorted(Comparator.comparing(Post::getDate))
                 .collect(Collectors.toList());
+        if(order == OrderPost.date_desc)
+            Collections.reverse(posts);
+        return posts;
     }
 
     public Date getDateBeforeTwoWeeks(){

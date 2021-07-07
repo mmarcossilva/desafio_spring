@@ -6,6 +6,8 @@ import com.meli.desafio_spring.products.DTOs.PostFormDTO;
 import com.meli.desafio_spring.products.DTOs.PostListDTO;
 import com.meli.desafio_spring.products.models.Post;
 import com.meli.desafio_spring.products.service.PostService;
+import commons.enums.OrderPost;
+import commons.enums.OrderUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +30,9 @@ public class ProductController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<PostListDTO> getListPosts(@PathVariable int userId){
-        List<PostDTO> posts = service.getLatestPosts(userId)
+    public ResponseEntity<PostListDTO> getListPosts(
+            @RequestParam(defaultValue = "date_desc") OrderPost order, @PathVariable int userId){
+        List<PostDTO> posts = service.getLatestPosts(userId, order)
                 .stream().map(PostDTO::convert).collect(Collectors.toList());
         return new ResponseEntity<>(new PostListDTO(userId, posts),HttpStatus.OK);
     }
