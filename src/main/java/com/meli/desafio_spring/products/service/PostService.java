@@ -1,6 +1,6 @@
 package com.meli.desafio_spring.products.service;
 
-import com.meli.desafio_spring.products.exceptions.ObjectIdAlreadyExistsExeception;
+import com.meli.desafio_spring.products.exceptions.ObjectIdAlreadyExistsException;
 import com.meli.desafio_spring.products.exceptions.SellerNotFoundException;
 import com.meli.desafio_spring.products.models.Post;
 import com.meli.desafio_spring.products.repository.PostRepository;
@@ -17,10 +17,14 @@ import java.util.stream.Collectors;
 @Service
 public class PostService {
 
+    private final PostRepository postRepository;
+    private final UserService userService;
+
     @Autowired
-    private PostRepository postRepository;
-    @Autowired
-    private  UserService userService;
+    public PostService(PostRepository postRepository, UserService userService) {
+        this.postRepository = postRepository;
+        this.userService = userService;
+    }
 
     public void createPost(Post post){
         validatePostExists(post.getPostId());
@@ -37,7 +41,7 @@ public class PostService {
     public void validatePostExists(int id){
         Post post = postRepository.findById(id);
         if(post != null)
-            throw new ObjectIdAlreadyExistsExeception();
+            throw new ObjectIdAlreadyExistsException();
     }
 
     public List<Post> getLatestPosts(int userId, OrderPost order){

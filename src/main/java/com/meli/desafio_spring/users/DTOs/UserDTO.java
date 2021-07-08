@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class UserDTO {
     private int userID;
-    private  String userName;
+    private String userName;
 
     public UserDTO(int userID, String userName) {
         this.userID = userID;
@@ -19,8 +19,16 @@ public class UserDTO {
         return userID;
     }
 
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
     public String getUserName() {
         return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public static List<UserDTO> convertBuyers(List<Buyer> buyers){

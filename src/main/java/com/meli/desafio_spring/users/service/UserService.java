@@ -20,10 +20,14 @@ import java.util.stream.Collectors;
 @Service
 public class UserService {
 
+    private final BuyerRepository buyerRepository;
+    private final SellerRepository sellerRepository;
+
     @Autowired
-    private BuyerRepository buyerRepository;
-    @Autowired
-    private SellerRepository sellerRepository;
+    public UserService(BuyerRepository buyerRepository, SellerRepository sellerRepository) {
+        this.buyerRepository = buyerRepository;
+        this.sellerRepository = sellerRepository;
+    }
 
     public void followSeller(int buyerId, int sellerId){
         Seller seller = sellerRepository.findById(sellerId);
@@ -54,7 +58,7 @@ public class UserService {
 
     public List<Buyer> getBuyers(List<Integer> buyersIds, OrderUser order){
         List<Buyer> buyers = buyersIds.stream()
-                .map(id -> buyerRepository.findById(id))
+                .map(buyerRepository::findById)
                 .sorted(Comparator.comparing(User::getUserName))
                 .collect(Collectors.toList());
         if(order == OrderUser.name_desc)
@@ -64,7 +68,7 @@ public class UserService {
 
     public List<Seller> getSellers(List<Integer> sellersIds, OrderUser order){
         List<Seller> sellers = sellersIds.stream()
-                .map(id -> sellerRepository.findById(id))
+                .map(sellerRepository::findById)
                 .sorted(Comparator.comparing(User::getUserName))
                 .collect(Collectors.toList());
         if(order == OrderUser.name_desc)

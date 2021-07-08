@@ -17,8 +17,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/products")
 public class ProductController {
 
+    private final PostService service;
+
     @Autowired
-    private PostService service;
+    public ProductController(PostService service) {
+        this.service = service;
+    }
 
     @PostMapping("/newpost")
     public ResponseEntity<?> createPost(@RequestBody PostFormDTO post){

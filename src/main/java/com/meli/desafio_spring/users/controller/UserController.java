@@ -19,8 +19,12 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
+    private final UserService service;
+
     @Autowired
-    private UserService service;
+    public UserController(UserService service) {
+        this.service = service;
+    }
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<?> follow(@PathVariable int userId, @PathVariable int userIdToFollow){

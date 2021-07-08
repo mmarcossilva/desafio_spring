@@ -1,6 +1,5 @@
-package com.meli.desafio_spring.users.handlers;
+package com.meli.desafio_spring.users.exceptions.handlers;
 
-import com.meli.desafio_spring.users.exceptions.UserAlreadyFollow;
 import com.meli.desafio_spring.users.exceptions.UserNotFollowed;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,5 @@
-package com.meli.desafio_spring.products.handlers;
+package com.meli.desafio_spring.products.exceptions.handlers;
 
-import com.meli.desafio_spring.products.exceptions.ObjectIdAlreadyExistsExeception;
 import com.meli.desafio_spring.products.exceptions.SellerNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
