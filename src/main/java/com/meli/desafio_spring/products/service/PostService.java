@@ -6,7 +6,6 @@ import com.meli.desafio_spring.products.models.Post;
 import com.meli.desafio_spring.products.repository.PostRepository;
 import com.meli.desafio_spring.users.models.Buyer;
 import com.meli.desafio_spring.users.models.Seller;
-import com.meli.desafio_spring.users.models.User;
 import com.meli.desafio_spring.users.service.UserService;
 import commons.enums.OrderPost;
 import commons.enums.OrderProducts;
