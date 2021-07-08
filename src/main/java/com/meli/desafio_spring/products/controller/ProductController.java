@@ -30,7 +30,9 @@ public class ProductController {
     public ResponseEntity<PostListDTO> getListPosts(
             @RequestParam(defaultValue = "date_desc") OrderPost order, @PathVariable int userId){
         List<PostDTO> posts = service.getLatestPosts(userId, order)
-                .stream().map(PostDTO::convert).collect(Collectors.toList());
+                .stream()
+                .map(PostDTO::convert)
+                .collect(Collectors.toList());
         return new ResponseEntity<>(new PostListDTO(userId, posts),HttpStatus.OK);
     }
 
@@ -44,6 +46,16 @@ public class ProductController {
     public ResponseEntity<PostPromoCountDTO> getPostsPromoCount(@PathVariable int userId) {
         List<Post> posts = service.getPromoPosts(userId);
         return new ResponseEntity<>(new PostPromoCountDTO(userId, service.getSellerName(userId), posts.size()),
+                HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/list")
+    public ResponseEntity<PostPromoListDTO> getPostsPromoList(@PathVariable int userId) {
+        List<PostPromoDTO> posts = service.getPromoPosts(userId)
+                .stream()
+                .map(PostPromoDTO::convert)
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(new PostPromoListDTO(userId, service.getSellerName(userId), posts),
                 HttpStatus.OK);
     }
 }

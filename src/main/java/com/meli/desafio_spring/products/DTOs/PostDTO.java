@@ -1,12 +1,8 @@
 package com.meli.desafio_spring.products.DTOs;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.OptBoolean;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.meli.desafio_spring.products.models.Post;
 import com.meli.desafio_spring.products.models.Product;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class PostDTO {
