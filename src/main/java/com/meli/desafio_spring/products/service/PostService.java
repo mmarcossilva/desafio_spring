@@ -59,4 +59,12 @@ public class PostService {
         calendar.add(Calendar.DATE, -14);
         return calendar.getTime();
     }
+
+    public List<Post> getPromoPosts(int userId) {
+        return postRepository.findPromosBySeller(userId);
+    }
+
+    public String getSellerName(int id) {
+        return userService.getSeller(id).getUserName();
+    }
 }

@@ -1,14 +1,10 @@
 package com.meli.desafio_spring.products.controller;
 
 
-import com.meli.desafio_spring.products.DTOs.PostDTO;
-import com.meli.desafio_spring.products.DTOs.PostFormDTO;
-import com.meli.desafio_spring.products.DTOs.PostListDTO;
-import com.meli.desafio_spring.products.DTOs.PromoPostFormDTO;
+import com.meli.desafio_spring.products.DTOs.*;
 import com.meli.desafio_spring.products.models.Post;
 import com.meli.desafio_spring.products.service.PostService;
 import commons.enums.OrderPost;
-import commons.enums.OrderUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,4 +40,10 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/{userId}/countPromo")
+    public ResponseEntity<PostPromoCountDTO> getPostsPromoCount(@PathVariable int userId) {
+        List<Post> posts = service.getPromoPosts(userId);
+        return new ResponseEntity<>(new PostPromoCountDTO(userId, service.getSellerName(userId), posts.size()),
+                HttpStatus.OK);
+    }
 }
