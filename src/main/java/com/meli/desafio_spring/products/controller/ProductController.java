@@ -4,6 +4,7 @@ package com.meli.desafio_spring.products.controller;
 import com.meli.desafio_spring.products.DTOs.PostDTO;
 import com.meli.desafio_spring.products.DTOs.PostFormDTO;
 import com.meli.desafio_spring.products.DTOs.PostListDTO;
+import com.meli.desafio_spring.products.DTOs.PromoPostFormDTO;
 import com.meli.desafio_spring.products.models.Post;
 import com.meli.desafio_spring.products.service.PostService;
 import commons.enums.OrderPost;
@@ -35,6 +36,12 @@ public class ProductController {
         List<PostDTO> posts = service.getLatestPosts(userId, order)
                 .stream().map(PostDTO::convert).collect(Collectors.toList());
         return new ResponseEntity<>(new PostListDTO(userId, posts),HttpStatus.OK);
+    }
+
+    @PostMapping("/newpromopost")
+    public ResponseEntity<?> createPromoPost(@RequestBody PromoPostFormDTO post){
+        service.createPost(PromoPostFormDTO.convert(post));
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

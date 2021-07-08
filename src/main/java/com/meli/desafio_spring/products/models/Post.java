@@ -9,6 +9,8 @@ public class Post {
     private int category;
     private double price;
     private Product product;
+    private boolean hasPromo;
+    private double discount;
 
     public Post(int userId, int postId, Date date, int category, double price, Product product) {
         this.userId = userId;
@@ -17,6 +19,35 @@ public class Post {
         this.category = category;
         this.price = price;
         this.product = product;
+        this.hasPromo = false;
+    }
+
+    public Post(int userId, int postId, Date date, int category, double price, Product product,
+                boolean hasPromo, double discount) {
+        this.userId = userId;
+        this.postId = postId;
+        this.date = date;
+        this.category = category;
+        this.price = price;
+        this.product = product;
+        this.hasPromo = hasPromo;
+        this.discount = discount;
+    }
+
+    public boolean isHasPromo() {
+        return hasPromo;
+    }
+
+    public void setHasPromo(boolean hasPromo) {
+        this.hasPromo = hasPromo;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
 
     public int getUserId() {

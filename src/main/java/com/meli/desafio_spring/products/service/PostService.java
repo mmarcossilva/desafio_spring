@@ -23,18 +23,18 @@ public class PostService {
     private  UserService userService;
 
     public void createPost(Post post){
-        validadePostExists(post.getPostId());
-        validadeUserExists(post.getUserId());
+        validatePostExists(post.getPostId());
+        validateUserExists(post.getUserId());
         postRepository.save(post);
     }
 
-    public void validadeUserExists(int userId){
+    public void validateUserExists(int userId){
         Seller seller = userService.getSeller(userId);
         if(seller == null)
             throw new SellerNotFoundException();
     }
 
-    public void validadePostExists(int id){
+    public void validatePostExists(int id){
         Post post = postRepository.findById(id);
         if(post != null)
             throw new ObjectIdAlreadyExistsExeception();
