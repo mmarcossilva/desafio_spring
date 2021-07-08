@@ -54,7 +54,7 @@ public class UserController {
 
     @GetMapping("/{userId}/followed/list/")
     public ResponseEntity<BuyerListDTO> getFollowedList(
-            @RequestParam(defaultValue = "name_asc") OrderUser order, @PathVariable int userId){
+            @RequestParam(defaultValue = "product_name_asc") OrderUser order, @PathVariable int userId){
         Buyer buyer = service.getBuyer(userId);
         List<UserDTO> sellers = UserDTO.convertSellers(service.getSellers(buyer.getFollowed(), order));
         return new ResponseEntity<>(new BuyerListDTO(buyer, sellers), HttpStatus.OK);

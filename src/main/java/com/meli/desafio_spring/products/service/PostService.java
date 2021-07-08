@@ -6,8 +6,10 @@ import com.meli.desafio_spring.products.models.Post;
 import com.meli.desafio_spring.products.repository.PostRepository;
 import com.meli.desafio_spring.users.models.Buyer;
 import com.meli.desafio_spring.users.models.Seller;
+import com.meli.desafio_spring.users.models.User;
 import com.meli.desafio_spring.users.service.UserService;
 import commons.enums.OrderPost;
+import commons.enums.OrderProducts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,8 +66,17 @@ public class PostService {
         return calendar.getTime();
     }
 
+    public List<Post> getPromoPosts(int userId, OrderProducts order) {
+        List<Post> posts = getPromoPosts(userId);
+        if (order == OrderProducts.product_name_desc)
+            Collections.reverse(posts);
+        return posts;
+    }
+
     public List<Post> getPromoPosts(int userId) {
-        return postRepository.findPromosBySeller(userId);
+        return postRepository.findPromosBySeller(userId).stream()
+                .sorted(Comparator.comparing(post -> post.getProduct().getProductName()))
+                .collect(Collectors.toList());
     }
 
     public String getSellerName(int id) {

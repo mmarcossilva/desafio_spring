@@ -5,6 +5,7 @@ import com.meli.desafio_spring.products.DTOs.*;
 import com.meli.desafio_spring.products.models.Post;
 import com.meli.desafio_spring.products.service.PostService;
 import commons.enums.OrderPost;
+import commons.enums.OrderProducts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,8 +55,9 @@ public class ProductController {
     }
 
     @GetMapping("/{userId}/list")
-    public ResponseEntity<PostPromoListDTO> getPostsPromoList(@PathVariable int userId) {
-        List<PostPromoDTO> posts = service.getPromoPosts(userId)
+    public ResponseEntity<PostPromoListDTO> getPostsPromoList(
+            @RequestParam(defaultValue = "product_name_asc") OrderProducts order, @PathVariable int userId) {
+        List<PostPromoDTO> posts = service.getPromoPosts(userId, order)
                 .stream()
                 .map(PostPromoDTO::convert)
                 .collect(Collectors.toList());
