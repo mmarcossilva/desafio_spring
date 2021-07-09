@@ -1,9 +1,9 @@
 package com.meli.desafio_spring.users.controller;
 
-import com.meli.desafio_spring.users.DTOs.BuyerListDTO;
-import com.meli.desafio_spring.users.DTOs.SellerCountDTO;
-import com.meli.desafio_spring.users.DTOs.SellerListDTO;
-import com.meli.desafio_spring.users.DTOs.UserDTO;
+import com.meli.desafio_spring.users.dto.BuyerListDTO;
+import com.meli.desafio_spring.users.dto.SellerCountDTO;
+import com.meli.desafio_spring.users.dto.SellerListDTO;
+import com.meli.desafio_spring.users.dto.UserDTO;
 import com.meli.desafio_spring.users.models.Buyer;
 import com.meli.desafio_spring.users.models.Seller;
 import com.meli.desafio_spring.users.service.UserService;
