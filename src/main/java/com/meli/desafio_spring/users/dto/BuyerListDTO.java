@@ -1,4 +1,4 @@
-package com.meli.desafio_spring.users.DTOs;
+package com.meli.desafio_spring.users.dto;
 
 import com.meli.desafio_spring.users.models.Buyer;
 
